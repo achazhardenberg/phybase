@@ -1,1 +1,0 @@
-R Scripts for all the PhyBaSE versions of the path analyses models from Gonzalez-Voyer and von Hardenberg (2014) 
