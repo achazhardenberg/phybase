@@ -30,7 +30,7 @@ ID <- diag(67)
 #Set seed so results from the mcmc are perfectly replicable
 set.seed(12345)
 
-#Alternative model SHA2
+# Model LHA1 
 
 bovidsLHA1.jg<-function(){
   #Linear regression and multivariate normal likelihood
