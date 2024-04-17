@@ -29,7 +29,7 @@ ID <- diag(67)
 
 set.seed(12345) #we set a seed so results from the mcmc are perfectly replicable
 
-#Alternative model CB
+#Alternative model CB2 with S as binomial (GR = Gregariousness)
 
 bovidsCB2_binom.jg<-function(){
   #Linear regression and multivariate normal likelihood
@@ -44,11 +44,11 @@ bovidsCB2_binom.jg<-function(){
   L[1:Nspec]~dmnorm(muL[],TAUl[,])
   
   # binomial regression
-  err[1:Nspec]~ dmnorm(muS[],TAUs)
+  err[1:Nspec]~ dmnorm(muGR[],TAUgr)
   
   for (i in 1:Nspec) {
-    logit(pS[i]) <- alpha4+beta4*BM[i]+err[i]
-    S[i]~dbern(pS[i])
+    logit(pGR[i]) <- alpha4+beta4*BM[i]+err[i]
+    GR[i]~dbern(pGR[i])
   } 
   
   #Priors
@@ -62,11 +62,11 @@ bovidsCB2_binom.jg<-function(){
   beta4 ~ dnorm(0,1.0E-06)
   lambdaBR ~ dunif(0,1)
   lambdaL ~ dunif(0,1)
-  lambdaS ~ dunif(0,1)
+  lambdaGR ~ dunif(0,1)
   lambdaG ~ dunif(0,1)
   tauBR ~ dgamma(1,1)
   tauL ~ dgamma(1,1)
-  tauS ~ dgamma(1,1)
+  tauGR ~ dgamma(1,1)
   tauG ~ dgamma(1,1)
   #Tree sampling and lambda computation
   for (k in 1:Ntree) {
@@ -76,19 +76,19 @@ bovidsCB2_binom.jg<-function(){
   #LAMBDA is a matrix with off-diagonal lambda value and 1 in the diagonal
   MlamBR <- lambdaBR*multiVCV[,,K]+(1-lambdaBR)*ID
   MlamL <- lambdaL*multiVCV[,,K]+(1-lambdaL)*ID
-  MlamS <- lambdaS*multiVCV[,,K]+(1-lambdaS)*ID
+  MlamS <- lambdaGR*multiVCV[,,K]+(1-lambdaGR)*ID
   MlamG <- lambdaG*multiVCV[,,K]+(1-lambdaG)*ID
   TAUbr <- tauBR*inverse(MlamBR)
   TAUl <- tauL*inverse(MlamL)
-  TAUs <- inverse(tauS*MlamS[,])
+  TAUgr <- inverse(tauGR*MlamS[,])
   TAUg <- tauG*inverse(MlamG)
 }
 
 
-params <- c("beta1","beta2","beta3","beta4","lambdaBR","lambdaL","lambdaS","lambdaG")
+params <- c("beta1","beta2","beta3","beta4","lambdaBR","lambdaL","lambdaGR","lambdaG")
 
-muS<-rep(0,67)
-bovids.data<-list(BM=bovidsCutSc.dat$Adultwt,S=bovidsCutSc.dat$Greg,G=bovidsCutSc.dat$Gestation,L=bovidsCutSc.dat$Maxlongev,BR=bovidsCutSc.dat$Brain,muS=muS, multiVCV=multiVCV,ID=ID,Nspec=67,Ntree=100)
+muGR<-rep(0,67)
+bovids.data<-list(BM=bovidsCutSc.dat$Adultwt,GR=bovidsCutSc.dat$Greg,G=bovidsCutSc.dat$Gestation,L=bovidsCutSc.dat$Maxlongev,BR=bovidsCutSc.dat$Brain,muS=muS, multiVCV=multiVCV,ID=ID,Nspec=67,Ntree=100)
 
 bovidsCB2_binomial.mcmc<-jags(data=bovids.data, model.file=bovidsCB2_binom.jg,n.chains=3,n.iter=24000,n.burnin=4000,n.thin=10,parameters.to.save=params)
 
