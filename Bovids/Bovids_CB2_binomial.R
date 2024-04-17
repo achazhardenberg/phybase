@@ -11,7 +11,7 @@ bovidsCut.dat$Brain<-log(bovidsCut.dat$Brain)
 bovidsCut.dat$Gestation<-log(bovidsCut.dat$Gestation)
 bovidsCut.dat$Maxlongev<-log(bovidsCut.dat$Maxlongev)
 
-bovidsCut.dat$Greg<-ifelse(bovidsCut.dat$Groupsz>=6,1,0)
+bovidsCut.dat$Greg<-ifelse(bovidsCut.dat$Groupsz>=6,1,0) #Here we transform group size into the binomal Gregariousness variable (Greg) 
 bovidsCut.dat$Groupsz<-log(bovidsCut.dat$Groupsz)
 
 bovidsCutSc.dat<-data.frame(scale(bovidsCut.dat[2:6]))
