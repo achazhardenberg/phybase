@@ -32,7 +32,7 @@ set.seed(12345)
 
 #Alternative model SHA2
 
-bovidsSHA2.jg<-function(){
+bovidsLHA1.jg<-function(){
   #Linear regression and multivariate normal likelihood
   for (i in 1:Nspec) {
     muBR[i] <- alpha1+beta1*BM[i]
@@ -82,18 +82,18 @@ params <- c("beta1","beta2","beta3","beta4","lambdaBR","lambdaL","lambdaS","lamb
 
 bovids.data<-list(BM=bovidsCutSc.dat$Adultwt,S=bovidsCutSc.dat$Groupsz,G=bovidsCutSc.dat$Gestation,L=bovidsCutSc.dat$Maxlongev,BR=bovidsCutSc.dat$Brain,multiVCV=multiVCV,ID=ID,Nspec=67,Ntree=100)
 
-bovidsSHA2.mcmc<-jags(data=bovids.data, model.file=bovidsSHA2.jg,n.chains=3,n.iter=24000,n.burnin=4000,n.thin=10,parameters.to.save=params)
+bovidsLHA1.mcmc<-jags(data=bovids.data, model.file=bovidsLHA1.jg,n.chains=3,n.iter=24000,n.burnin=4000,n.thin=10,parameters.to.save=params)
 
-samples.SHA2<- jags.samples(bovidsSHA2.mcmc$model, 
+samples.LHA1<- jags.samples(bovidsSHA2.mcmc$model, 
                           c("WAIC","deviance"), 
                           type = "mean", 
                           n.iter = 24000,
                           n.burnin = 4000,
                           n.thin = 10)
 
-samples.SHA2$p_waic <- samples.SHA2$WAIC
-samples.SHA2$waic <- samples.SHA2$deviance + samples.SHA2$p_waic
-tmp <- sapply(samples.SHA2, sum)
-waic.SHA2 <- round(c(waic = tmp[["waic"]], p_waic = tmp[["p_waic"]]),1)
+samples.LHA1$p_waic <- samples.LHA1$WAIC
+samples.LHA1$waic <- samples.LHA1$deviance + samples.LHA1$p_waic
+tmp <- sapply(samples.LHA1, sum)
+waic.LHA1 <- round(c(waic = tmp[["waic"]], p_waic = tmp[["p_waic"]]),1)
 
-save(file="bovidsSHA2.Rdata", list=c("bovidsSHA2.mcmc", "samples.SHA2","waic.SHA2"))
+save(file="bovidsLHA1.Rdata", list=c("bovidsLHA1.mcmc", "samples.LHA1","waic.LHA1"))
