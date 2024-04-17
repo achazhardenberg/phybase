@@ -29,7 +29,7 @@ ID <- diag(67)
 
 set.seed(12345) #we set a seed so results from the mcmc are perfectly replicable
 
-#Alternative model CB
+#model CB1
 
 bovidsCB1.jg<-function(){
   #Linear regression and multivariate normal likelihood
