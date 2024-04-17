@@ -29,9 +29,9 @@ ID <- diag(67)
 
 set.seed(12345) #we set a seed so results from the mcmc are perfectly replicable
 
-#Model LHA
+#Model LHA2
 
-bovidsLHA.jg<-function(){
+bovidsLHA2.jg<-function(){
   #Linear regression and multivariate normal likelihood
   for (i in 1:Nspec) {
     muBR[i] <- alpha1+beta1*BM[i]
@@ -80,18 +80,18 @@ params <- c("beta1","beta2","beta3","beta4","lambdaBR","lambdaL","lambdaS","lamb
 
 bovids.data<-list(BM=bovidsCutSc.dat$Adultwt,S=bovidsCutSc.dat$Groupsz,G=bovidsCutSc.dat$Gestation,L=bovidsCutSc.dat$Maxlongev,BR=bovidsCutSc.dat$Brain,multiVCV=multiVCV,ID=ID,Nspec=67,Ntree=100)
 
-bovidsLHA.mcmc<-jags(data=bovids.data, model.file=bovidsLHA.jg,n.chains=3,n.iter=24000,n.burnin=4000,n.thin=10,parameters.to.save=params)
+bovidsLHA2.mcmc<-jags(data=bovids.data, model.file=bovidsLHA2.jg,n.chains=3,n.iter=24000,n.burnin=4000,n.thin=10,parameters.to.save=params)
 
-samples.LHA <- jags.samples(bovidsLHA.mcmc$model, 
+samples.LHA2 <- jags.samples(bovidsLHA2.mcmc$model, 
                             c("WAIC","deviance"), 
                             type = "mean", 
                             n.iter = 24000,
                             n.burnin = 4000,
                             n.thin = 10)
 
-samples.LHA$p_waic <- samples.LHA$WAIC
-samples.LHA$waic <- samples.LHA$deviance + samples.LHA$p_waic
-tmp <- sapply(samples.LHA, sum)
-waic.LHA <- round(c(waic = tmp[["waic"]], p_waic = tmp[["p_waic"]]),1)
+samples.LHA2$p_waic <- samples.LHA2$WAIC
+samples.LHA2$waic <- samples.LHA2$deviance + samples.LHA2$p_waic
+tmp <- sapply(samples.LHA2, sum)
+waic.LHA2 <- round(c(waic = tmp[["waic"]], p_waic = tmp[["p_waic"]]),1)
 
-save(file="bovidsLHA.Rdata", list=c("bovidsLHA.mcmc", "samples.LHA","waic.LHA"))
+save(file="bovidsLHA2.Rdata", list=c("bovidsLHA2.mcmc", "samples.LHA2","waic.LHA2"))
