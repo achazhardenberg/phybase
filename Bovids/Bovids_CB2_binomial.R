@@ -31,7 +31,7 @@ set.seed(12345) #we set a seed so results from the mcmc are perfectly replicable
 
 #Alternative model CB
 
-bovidsCB_binom.jg<-function(){
+bovidsCB2_binom.jg<-function(){
   #Linear regression and multivariate normal likelihood
   for (i in 1:Nspec) {
     muBR[i] <- alpha1+beta1*BM[i]
@@ -90,15 +90,12 @@ params <- c("beta1","beta2","beta3","beta4","lambdaBR","lambdaL","lambdaS","lamb
 muS<-rep(0,67)
 bovids.data<-list(BM=bovidsCutSc.dat$Adultwt,S=bovidsCutSc.dat$Greg,G=bovidsCutSc.dat$Gestation,L=bovidsCutSc.dat$Maxlongev,BR=bovidsCutSc.dat$Brain,muS=muS, multiVCV=multiVCV,ID=ID,Nspec=67,Ntree=100)
 
-bovidsCB_binomial.mcmc<-jags(data=bovids.data, model.file=bovidsCB_binom.jg,n.chains=3,n.iter=24000,n.burnin=4000,n.thin=10,parameters.to.save=params)
+bovidsCB2_binomial.mcmc<-jags(data=bovids.data, model.file=bovidsCB2_binom.jg,n.chains=3,n.iter=24000,n.burnin=4000,n.thin=10,parameters.to.save=params)
 
+bovidsCB2_binomial.mcmc
 
-bovidsCB_binomial.mcmc
+save(file="bovidsCB2_binomial.Rdata", list="bovidsCB2_binomial.mcmc")
 
-save(file="bovidsCB_bin24.Rdata", list="bovidsCB_binomial.mcmc")
-
-
-bovidsCB2.mcmc
 
 
 
