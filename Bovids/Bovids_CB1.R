@@ -1,8 +1,7 @@
-library(ape)
-library(caper)
-library(nlme)
-library(rjags)
-library(R2jags)
+library(ape) # read.nexus branching.times
+library(rjags) # jags.samples
+library(R2jags) # jags
+
 bovids.dat<-read.csv("Bovidsdata.csv",header=T)
 keeps<-c("Species","Brain","Gestation","Adultwt","Maxlongev","Groupsz")
 bovidsCut.dat<-na.omit(bovids.dat[keeps]) #datafile with complete cases only

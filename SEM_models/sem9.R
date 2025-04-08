@@ -1,7 +1,4 @@
 library(ape)
-library(caper)
-library(nlme)
-library(rjags)
 library(R2jags)
 
 rhino.dat<-read.csv("rhino.csv")

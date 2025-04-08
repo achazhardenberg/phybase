@@ -83,11 +83,8 @@ write.csv(dataMulti,file="RhinoMulti.csv")
 
 #We read in the data and rescale the tree
 
-library(ape)
-library(caper)
-library(nlme)
-library(rjags)
-library(R2jags)
+library(ape) # read.tree branching.times vcv.phylo
+library(R2jags) # jags
 
 rhinomulti.dat<-read.csv("RhinoMulti.csv")
 names(rhinomulti.dat)<-c("X","SP","repBM","repNL","repLS","repDD","repRS")
@@ -188,11 +185,8 @@ sem8ME.mcmc
 ## but we have average and standard error. This example code is based on the Rhinograd data for which mean and se 
 ## are known for each species. Data simulated using the following code: 
   
-library(ape)
-library(caper)
-library(nlme)
-library(rjags)
-library(R2jags)
+library(ape) # read.tree branching.times vcv.phylo 
+library(R2jags) # jags 
 
 rhino.tree<-read.tree("rhino.tree")
 

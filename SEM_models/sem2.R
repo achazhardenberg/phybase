@@ -1,8 +1,5 @@
-library(ape)
-library(caper)
-library(nlme)
-library(rjags)
-library(R2jags)
+library(ape) # read.tree branching.times vcv.phylo
+library(R2jags) # jags
 
 rhino.dat<-read.csv("rhino.csv")
 rhino.tree<-read.tree("rhino.tree")

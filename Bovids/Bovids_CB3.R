@@ -1,6 +1,4 @@
 library(ape)
-library(caper)
-library(nlme)
 library(rjags)
 library(R2jags)
 bovids.dat<-read.csv("Bovidsdata.csv",header=T)
