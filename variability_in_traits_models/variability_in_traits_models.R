@@ -8,6 +8,8 @@
 ##Simulation of repeated measures for each trait
 set.seed(12345)
 
+rhino.dat<-read.csv("rhino.csv")
+
 BM.new<-data.frame()
 for(i in 1:length(rhino.dat$BM)){
   BM.mult<-sample(rnorm(500,mean=rhino.dat$BM[i],sd=sd(rhino.dat$BM)/4),10)
@@ -90,7 +92,7 @@ library(R2jags)
 rhinomulti.dat<-read.csv("RhinoMulti.csv")
 names(rhinomulti.dat)<-c("X","SP","repBM","repNL","repLS","repDD","repRS")
 
-rhino.tree<-read.tree("http://mpcm-evolution.com/OPM/Chapter8_OPM/download/rhino.tree")
+rhino.tree<-read.tree("rhino.tree")
 rhino.tree$edge.length<-rhino.tree$edge.length/max(branching.times(rhino.tree)) 
 #we need to rescale the total tree length to 1 to get a correct estimate of lambda
 
@@ -192,7 +194,7 @@ library(nlme)
 library(rjags)
 library(R2jags)
 
-rhino.tree<-read.tree("http://mpcm-evolution.com/OPM/Chapter8_OPM/download/rhino.tree")
+rhino.tree<-read.tree("rhino.tree")
 
 rhino.tree$edge.length<-rhino.tree$edge.length/max(branching.times(rhino.tree))
 ID<-diag(100)
