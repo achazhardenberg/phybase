@@ -1,1 +1,1 @@
-Example code for coverage analysis for model 8
+Code for coverage analysis for model 8
