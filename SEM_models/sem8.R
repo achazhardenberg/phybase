@@ -4,8 +4,8 @@ library(nlme)
 library(rjags)
 library(R2jags)
 
-rhino.dat<-read.csv("http://mpcm-evolution.com/OPM/Chapter8_OPM/download/rhino.csv")
-rhino.tree<-read.tree("http://mpcm-evolution.com/OPM/Chapter8_OPM/download/rhino.tree")
+rhino.dat<-read.csv("rhino.csv")
+rhino.tree<-read.tree("rhino.tree")
 
 rhino.tree$edge.length<-rhino.tree$edge.length/max(branching.times(rhino.tree))
 
