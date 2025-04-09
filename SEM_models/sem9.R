@@ -1,14 +1,15 @@
+
 library(ape)
-library(R2jags)
+library(R2jags) 
 
 rhino.dat<-read.csv("rhino.csv")
 rhino.tree<-read.tree("rhino.tree")
 
 rhino.tree$edge.length<-rhino.tree$edge.length/max(branching.times(rhino.tree))
 
-rhino.vcv <- vcv.phylo(rhino.tree)
-ID<-diag(100)
-VCV<-rhino.vcv
+rhino.vcv <- vcv.phylo(rhino.tree) 
+ID<-diag(100) #calculate the identity matrix for 100 species
+VCV<-rhino.vcv  
 
 nc<-3  #number of chains
 ni<-12000 #number of iterations
